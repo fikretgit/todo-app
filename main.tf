@@ -3,7 +3,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "~> 4.0"
     }
   }
@@ -16,40 +16,40 @@ provider "aws" {
 }
 
 resource "aws_instance" "postgres_node" {
-  ami = "ami-0f095f89ae15be883"
-  instance_type = var.instancetype
-  key_name = var.mykey
-  iam_instance_profile = aws_iam_instance_profile.ec2full.name
+  ami                    = "ami-0f095f89ae15be883"
+  instance_type          = var.instancetype
+  key_name               = var.mykey
+  iam_instance_profile   = aws_iam_instance_profile.ec2full.name
   vpc_security_group_ids = [aws_security_group.postgres-sec-gr.id]
   tags = {
-    Name = "ansible_postgres"
-    stack = "ansible_project"
+    Name        = "ansible_postgres"
+    stack       = "ansible_project"
     environment = "development"
   }
 }
 
 resource "aws_instance" "react_node" {
-  ami = "ami-0f095f89ae15be883"
-  instance_type = var.instancetype
-  key_name = var.mykey
-  iam_instance_profile = aws_iam_instance_profile.ec2full.name
+  ami                    = "ami-0f095f89ae15be883"
+  instance_type          = var.instancetype
+  key_name               = var.mykey
+  iam_instance_profile   = aws_iam_instance_profile.ec2full.name
   vpc_security_group_ids = [aws_security_group.react-sec-gr.id]
   tags = {
-    Name = "ansible_react"
-    stack = "ansible_project"
+    Name        = "ansible_react"
+    stack       = "ansible_project"
     environment = "development"
   }
 }
 
 resource "aws_instance" "nodejs_node" {
-  ami = "ami-0f095f89ae15be883"
-  instance_type = var.instancetype
-  key_name = var.mykey
-  iam_instance_profile = aws_iam_instance_profile.ec2full.name
+  ami                    = "ami-0f095f89ae15be883"
+  instance_type          = var.instancetype
+  key_name               = var.mykey
+  iam_instance_profile   = aws_iam_instance_profile.ec2full.name
   vpc_security_group_ids = [aws_security_group.nodejs-sec-gr.id]
   tags = {
-    Name = "ansible_nodejs"
-    stack = "ansible_project"
+    Name        = "ansible_nodejs"
+    stack       = "ansible_project"
     environment = "development"
   }
 }
@@ -93,9 +93,9 @@ resource "aws_security_group" "postgres-sec-gr" {
 
 
   ingress {
-    from_port   = 5432
-    protocol    = "tcp"
-    to_port     = 5432
+    from_port       = 5432
+    protocol        = "tcp"
+    to_port         = 5432
     security_groups = [aws_security_group.nodejs-sec-gr.id]
   }
 
